@@ -25,3 +25,7 @@ Route::get('/users', function () {
 Route::get('/users/create', function () {
     return view('admin.user.pages.create');
 });
+
+Route::get('/users/edit', function () {
+    return view('admin.user.pages.edit');
+});

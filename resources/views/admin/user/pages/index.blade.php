@@ -11,9 +11,9 @@
 @endpush
 @push('js')
     @vite([
-        'resources/js/admin/features/user/update_status.js',
-        'resources/js/admin/features/user/create.js',
-        'resources/js/admin/features/user/delete.js',
+        // 'resources/js/admin/features/user/update_status.js',
+        // 'resources/js/admin/features/user/create.js',
         'resources/js/admin/features/user/index.js',
+        // 'resources/js/admin/features/user/delete.js',
         ])
 @endpush

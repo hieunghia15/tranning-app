@@ -6,28 +6,28 @@
     <div class="d-flex align-items-center justify-content-between pe-3">
         <h5 class="card-header">Danh sách người dùng</h5>
         <button type="button" data-bs-toggle="modal" data-bs-target="#createUserModal"
-            class="btn rounded-pill btn-primary">Tạo</button>
+            class="btn rounded-pill btn-primary create-btn">Tạo</button>
     </div>
     <!-- Form Bộ Lọc -->
     <form id="filterForm">
         <div class="d-flex">
             <div class="col-md-6 pe-4 ps-4 pb-4">
                 <label class="form-label">Họ tên</label>
-                <input type="text" id="fullname" class="form-control">
+                <input type="text" id="fullname1" class="form-control">
             </div>
             <div class="col-md-6 pe-4 ps-4 pb-4">
-                <label class="form-label">Tên người dùng</label>
-                <input type="text" id="username" class="form-control">
+                <label class="form-label">Ngày sinh</label>
+                <input type="text" id="birthday1" class="form-control">
             </div>
         </div>
         <div class="d-flex">
             <div class="col-md-6 pe-4 ps-4 pb-4">
                 <label class="form-label">Email</label>
-                <input type="text" id="email" class="form-control">
+                <input type="text" id="email1" class="form-control">
             </div>
             <div class="col-md-6 pe-4 ps-4 pb-4">
                 <label class="form-label">Trạng thái</label>
-                <select id="status" class="form-select">
+                <select id="status1" class="form-select">
                     <option value="">Chọn trạng thái</option>
                     <option value="active">Hoạt động</option>
                     <option value="inactive">Không hoạt động</option>
@@ -67,8 +67,8 @@
                             <input type="text" id="fullname" name="fullname" class="form-control" />
                         </div>
                         <div class="col mb-0">
-                            <label for="username" class="form-label">Tên người dùng</label>
-                            <input type="text" id="username" name="username" class="form-control" />
+                            <label for="birthday" class="form-label">Ngày sinh</label>
+                            <input type="date" id="birthday" name="birthday" class="form-control" />
                         </div>
                     </div>
                     <div class="row p-1">
@@ -78,8 +78,19 @@
                                 placeholder="email@example.com" />
                         </div>
                         <div class="col mb-0">
+                            <label for="gender" class="form-label">Giới tính</label>
+                            <select class="form-control" name="gender" id="gender">
+                                <option value="1">Nam</option>
+                                <option value="2">Nữ</option>
+                                <option value="3">Khác</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row p-1">
+                        <div class="col mb-0">
                             <label for="avatar" class="form-label">Hình đại diện</label>
                             <input class="form-control" type="file" id="avatar" name="avatar" />
+                            <div id="avatarPreview"></div>
                         </div>
                     </div>
                     <div class="row p-1">

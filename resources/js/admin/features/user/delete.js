@@ -1,7 +1,8 @@
-$(".delete_user").on('click', function (e) {
+$(document).on("click", ".delete-btn", function (e) {
     e.preventDefault();
     let userId = $(this).data('id');
     const endpointApiDeleteUser = $(this).data('api');
+    console.log(endpointApiDeleteUser);
     $.confirm({
         title: 'Xác nhận',
         content: 'Bạn có chắc chắn muốn xoá dữ liệu này?',
@@ -21,11 +22,14 @@ $(".delete_user").on('click', function (e) {
                         beforeSend: showLoadingOverlay,
                         complete: hideLoadingOverlay,
                         success: function (res) {
-                            if (res.status === 'success') {
-                                showSuccess(USER_MESSAGES.delete_success);
-                            } else {
-                                showError(USER_MESSAGES.delete_fail);
-                            }
+                            // if (res.status === 'success') {
+                            //     showSuccess(USER_MESSAGES.delete_success);
+                            // } else {
+                            //     showError(USER_MESSAGES.delete_fail);
+                            // }
+                            table.ajax.reload();
+                            //console.log(res);
+                            //location.reload();
                         },
                         error: function (error) {
                             showSystemOccurred();

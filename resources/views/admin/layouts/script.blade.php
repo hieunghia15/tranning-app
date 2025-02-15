@@ -1,6 +1,8 @@
 <!-- Jquery -->
 <script src="{{ asset('/plugins/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('/plugins/jquery/jquery-ui.min.js') }}"></script>
+<script src="{{ asset('/plugins/datatables/datatables.js') }}"></script>
+<script src="{{ asset('/plugins/datatables/datatables.min.js') }}"></script>
 <script src="{{ asset('/plugins/jquery-confirm/jquery-confirm.min.js') }}"></script>
 <script src="{{ asset('/plugins/jquery-validate/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('/plugins/jquery-validate/additional-methods.min.js') }}"></script>
@@ -18,8 +20,7 @@
 <script src="{{ asset('/plugins/jquery-datepicker/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('/plugins/jquery-datepicker/datepicker.js') }}"></script>
 <script src="{{ asset('/plugins/jquery-datepicker/datepicker-vi.js') }}"></script>
-<script src="{{ asset('/plugins/datatables/datatables.js') }}"></script>
-<script src="{{ asset('/plugins/datatables/datatables.min.js') }}"></script>
+
 @vite([
 // 'resources/js/sneat/assets/vendor/libs/jquery/jquery.js',
 'resources/js/sneat/assets/vendor/libs/popper/popper.js',
