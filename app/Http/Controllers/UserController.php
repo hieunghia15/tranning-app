@@ -19,16 +19,22 @@ class UserController extends Controller
         if ($request->has('fullname') && !empty($request->fullname)) {
             $query->where('fullname', 'LIKE', '%' . $request->fullname . '%');
         }
-    
+
         if ($request->has('email') && !empty($request->email)) {
             $query->where('email', 'LIKE', '%' . $request->email . '%');
         }
-    
+
         if ($request->has('status') && !empty($request->status)) {
             $query->where('status', $request->status);
         }
-    
-        $users = $query->paginate($request->input('length', 10));
+
+        // Số lượng bản ghi trên mỗi trang (DataTables gửi lên từ client)
+        $length = $request->input('length', 10);
+        $start = $request->input('start', 0);
+        $page = ($start / $length) + 1; // Tính toán số trang hiện tại
+
+        // Lấy danh sách người dùng theo phân trang
+        $users = $query->paginate($length, ['*'], 'page', $page);
 
         return response()->json([
             'data' => $users,

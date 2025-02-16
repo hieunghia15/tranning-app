@@ -1,17 +1,15 @@
 $(document).ready(function () {
     let filterParams = {};
-    let userId = null;
-    let table = $('#userTable').DataTable({
+    let productId = null;
+    let table = $('#productTable').DataTable({
         processing: true,
         serverSide: true,
         ajax: {
-            url: "http://127.0.0.1:8000/api/users",
+            url: "http://127.0.0.1:8000/api/products",
             type: "GET",
             data: function (d) {
                 return {
-                    fullname: $('#fullname1').val(),
-                    email: $('#email1').val(),
-                    status: $('#status1').val(),
+                    name: $('#name').val(),
                     start: d.start || 0,  // Đảm bảo start được gửi
                     length: d.length || 10  // Đảm bảo length được gửi
                 };
@@ -19,24 +17,11 @@ $(document).ready(function () {
             dataSrc: "data.data"
         },
         columns: [
-            { data: "fullname" },
-            { data: "email" },
-            {
-                data: "status",
-                render: function (data, type, row) {
-                    let selected1 = data == 1 ? "selected" : "";
-                    let selected2 = data == 2 ? "selected" : "";
-                    let selected3 = data == 3 ? "selected" : "";
-
-                    return `
-                        <select class="form-select status-select" data-id="${row.id}">
-                            <option value="1" ${selected1}>Hoạt động</option>
-                            <option value="2" ${selected2}>Không hoạt động</option>
-                            <option value="3" ${selected3}>Khoá</option>
-                        </select>
-                    `;
-                }
-            },
+            { data: "name" },
+            { data: "product_code" },
+            { data: "category_id" },
+            { data: "quantity" },
+            { data: "quantity_stock" },
             {
                 data: null,
                 render: function (data, type, row) {
@@ -68,57 +53,55 @@ $(document).ready(function () {
         table.ajax.reload();
     });
 
-    // Khi nhấn nút "Chỉnh sửa" người dùng
+    // Khi nhấn nút "Chỉnh sửa" sản phẩm
     $(document).on("click", ".edit-btn", function () {
-        userId = $(this).data("id"); // Lấy ID từ nút
-        $("#createUserModalTitle").text("Chỉnh sửa người dùng");
+        productId = $(this).data("id"); // Lấy ID từ nút
+        $("#createProductModalTitle").text("Chỉnh sửa sản phẩm");
         $("#btnSubmit").text("Cập nhật");
 
-        // Gọi API để lấy thông tin người dùng
+        //Gọi API để lấy thông tin sản phẩm
         $.ajax({
-            url: `/api/users/${userId}`,
+            url: `/api/products/${productId}`,
             method: "GET",
             success: function (response) {
-                $("#fullname").val(response.fullname);
-                $("#birthday").val(response.birthday);
-                $("#email").val(response.email);
-                $("#gender").val(response.gender);
-                $("#status").val(response.status);
+                $("#name").val(response.name);
+                $("#category_id").val(response.category_id);
+                $("#quantity").val(response.quantity);
+                $("#quantity_stock").val(response.quantity_stock);
+                $("#description").val(response.description);
+                $("#image").val('');
+                $("#imagePreview").html("");
 
-                $("#avatarPreview").html("");
-
-                // Nếu có avatar, hiển thị ảnh
                 if (response.avatar) {
-                    $("#avatarPreview").html(
+                    $("#imagePreview").html(
                         `<img src="${response.avatar}" class="img-thumbnail mt-2" width="100">`
                     );
                 }
-
-                $("#createUserModal").modal("show"); // Hiển thị modal
+                $("#createProductModal").modal("show");
             },
             error: function () {
-                alert("Không thể lấy dữ liệu người dùng");
+                alert("Không thể lấy dữ liệu sản phẩm");
             },
         });
     });
 
-    // Khi nhấn nút "Tạo người dùng mới"
+    // Khi nhấn nút "Tạo sản phẩm mới"
     $(document).on("click", ".create-btn", function () {
-        userId = null; // Reset ID khi tạo mới
-        $("#createUserForm")[0].reset(); // Xóa dữ liệu cũ
-        $("#createUserModalTitle").text("Tạo người dùng");
+        productId = null; // Reset ID khi tạo mới
+        $("#createProductForm")[0].reset(); // Xóa dữ liệu cũ
+        $("#createProductModalTitle").text("Tạo sản phẩm");
         $("#btnSubmit").text("Lưu");
-        $("#avatarPreview").html("");
-        $("#createUserModal").modal("show");
+        $("#imagePreview").html("");
+        $("#createProductModal").modal("show");
     });
 
-    $("#avatar").on("change", function () {
+    $(document).on("change", ".image-input", function (e) {
         let file = this.files[0];
         if (file) {
             let reader = new FileReader();
             reader.onload = function (e) {
-                $("#avatarPreview").html(
-                    `<img src="${e.target.result}" class="img-thumbnail mt-2" width="100">`
+                $(".image-preview").append(
+                    `<img src="${e.target.result}" class="img-thumbnail mt-2 ms-2" width="100">`
                 );
             };
             reader.readAsDataURL(file);
@@ -126,12 +109,12 @@ $(document).ready(function () {
     });
 
     // Xử lý submit form
-    $("#createUserForm").submit(function (e) {
+    $("#createProductForm").submit(function (e) {
         e.preventDefault();
 
         let formData = new FormData(this);
-        let url = userId ? `/api/users/${userId}` : "/api/users";
-        let method = userId ? "PUT" : "POST";
+        let url = productId ? `/api/users/${productId}` : "/api/users";
+        let method = productId ? "PUT" : "POST";
 
         $.ajax({
             url: url,
@@ -140,8 +123,8 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (response) {
-                alert(userId ? "Cập nhật thành công!" : "Tạo mới thành công!");
-                $("#createUserModal").modal("hide");
+                alert(productId ? "Cập nhật thành công!" : "Tạo mới thành công!");
+                $("#createProductModal").modal("hide");
                 // location.reload();
                 table.ajax.reload();
             },
@@ -153,9 +136,9 @@ $(document).ready(function () {
 
     $(document).on("click", ".delete-btn", function (e) {
         e.preventDefault();
-        let userId = $(this).data('id');
-        const endpointApiDeleteUser = $(this).data('api');
-        console.log(endpointApiDeleteUser);
+        let productId = $(this).data('id');
+        const endpointApiDeleteProduct = $(this).data('api');
+        console.log(endpointApiDeleteProduct);
         $.confirm({
             title: 'Xác nhận',
             content: 'Bạn có chắc chắn muốn xoá dữ liệu này?',
@@ -164,10 +147,10 @@ $(document).ready(function () {
                     text: 'Xoá',
                     action: function () {
                         $.ajax({
-                            url: endpointApiDeleteUser,
+                            url: endpointApiDeleteProduct,
                             method: 'DELETE',
                             data: {
-                                id: userId
+                                id: productId
                             },
                             dataType: "json",
                             encode: true,
@@ -200,22 +183,39 @@ $(document).ready(function () {
         });
     });
 
-    $('#userTable tbody').on('change', '.status-select', function () {
-        let userId = $(this).data('id');
-        let newStatus = $(this).val();
+    $(document).on("click", ".add-attribute", function () {
+        let newAttributeRow = `
+            <div class="row p-1 attribute-row">
+                <div class="col-6 mb-0">
+                    <input type="text" name="product_attribute[]" class="form-control product-attribute"/>
+                </div>
+                <div class="col-6 mb-0">
+                    <div class="d-flex align-items-center">
+                        <input type="text" name="product_attribute_value[]" class="form-control product-attribute-value"/>
+                        <span class="ms-2 remove-attribute">
+                            <i class="fa-solid fa-trash"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>`;
 
-        $.ajax({
-            url: `http://127.0.0.1:8000/api/users/${userId}/status`,
-            type: "PUT",
-            contentType: "application/json",
-            data: JSON.stringify({ status: newStatus }),
-            success: function (response) {
-                alert("Cập nhật trạng thái thành công!");
-                table.ajax.reload();
-            },
-            error: function () {
-                alert("Lỗi khi cập nhật trạng thái!");
-            }
-        });
+        $(".display-attribute").after(newAttributeRow);
+    });
+
+    // Xóa input khi nhấn vào biểu tượng fa-trash
+    $(document).on("click", ".remove-attribute", function () {
+        $(this).closest(".attribute-row").remove();
+    });
+
+    $(document).on("click", ".add-image", function (e) {
+        e.preventDefault(); // Ngăn chặn reload trang nếu button nằm trong form
+
+        let inputFile = $('<input type="file" name="image[]" class="form-control image-input" style="display:none" accept="image/*"/>');
+
+        // Thêm input vào .image-group
+        $(".image-group").append(inputFile);
+
+        // Tự động kích hoạt chọn file
+        inputFile.trigger("click");
     });
 });

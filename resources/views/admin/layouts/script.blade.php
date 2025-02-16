@@ -20,17 +20,11 @@
 <script src="{{ asset('/plugins/jquery-datepicker/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('/plugins/jquery-datepicker/datepicker.js') }}"></script>
 <script src="{{ asset('/plugins/jquery-datepicker/datepicker-vi.js') }}"></script>
-
-@vite([
-// 'resources/js/sneat/assets/vendor/libs/jquery/jquery.js',
-'resources/js/sneat/assets/vendor/libs/popper/popper.js',
-'resources/js/sneat/assets/vendor/js/bootstrap.js',
-'resources/js/sneat/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js',
-'resources/js/sneat/assets/vendor/js/menu.js',
-'resources/js/sneat/assets/vendor/libs/apex-charts/apexcharts.js',
-'resources/js/sneat/assets/js/main.js',
-'resources/css/sneat/assets/js/config.js',
-
-])
+<script src="{{ asset('/sneat/assets/vendor/libs/popper/popper.js') }}"></script>
+<script src="{{ asset('/sneat/assets/vendor/js/bootstrap.js') }}"></script>
+<script src="{{ asset('/sneat/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+<script src="{{ asset('/sneat/assets/vendor/js/menu.js') }}"></script>
+<script src="{{ asset('/sneat/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+<script src="{{ asset('/sneat/assets/js/main.js') }}"></script>
 
 @stack('js')

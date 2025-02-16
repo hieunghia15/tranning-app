@@ -29,3 +29,11 @@ Route::get('/users/create', function () {
 Route::get('/users/edit', function () {
     return view('admin.user.pages.edit');
 });
+
+Route::get('/products', function () {
+    return view('admin.product.pages.index');
+});
+
+Route::get('/products/detail', function () {
+    return view('admin.product.pages.detail');
+});
