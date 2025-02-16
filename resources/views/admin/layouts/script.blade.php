@@ -8,14 +8,14 @@
 <script src="{{ asset('/plugins/jquery-validate/additional-methods.min.js') }}"></script>
 <script src="{{ asset('/plugins/select2/select2.min.js') }}"></script>
 <script src="{{ asset('/plugins/config.js') }}"></script>
-{{-- <script>
+<script>
   $.ajaxSetup({
     headers: {
       'X-CSRF-TOKEN': '{{ csrf_token() }}',
-      'X-API-Token': 'Bearer {{ session('jwt_access_token') }}',
+      'X-API-Token': 'Bearer {{ session('api_token') }}',
     },
   });
-</script> --}}
+</script>
 <!-- Datepicker -->
 <script src="{{ asset('/plugins/jquery-datepicker/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('/plugins/jquery-datepicker/datepicker.js') }}"></script>

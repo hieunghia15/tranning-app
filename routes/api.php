@@ -9,8 +9,8 @@ use App\Http\Controllers\ProductController;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
-Route::apiResource('users', UserController::class);
-Route::apiResource('products', ProductController::class);
+Route::apiResource('users', UserController::class)->middleware('auth:sanctum');
+Route::apiResource('products', ProductController::class)->middleware('auth:sanctum');
 
 
 // Route::post('/login', [AuthController::class, 'login'])->name('login');
