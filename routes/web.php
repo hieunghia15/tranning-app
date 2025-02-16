@@ -1,14 +1,26 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
-Route::get('/dashboard', function () {
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+
+Route::get('/sign-in', function () {
+    return view('auth.login');
+})->name('signin');
+
+Route::middleware('auth')->get('/dashboard', function () {
     return view('admin.dashboard.pages.index');
-});
+})->name('dashboard');
+
+// Route::get('/dashboard', function () {
+//     return view('admin.dashboard.pages.index');
+// });
 
 Route::get('/account-info', function () {
     return view('admin.user.pages.account_info');
@@ -37,3 +49,4 @@ Route::get('/products', function () {
 Route::get('/products/detail', function () {
     return view('admin.product.pages.detail');
 });
+

@@ -4,7 +4,7 @@
   @yield('title', 'Dashboard')
 </title>
 <meta name="description" content="" />
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- Favicon -->
 <link rel="icon" type="image/x-icon" href="#" />
 
@@ -27,7 +27,13 @@
 <!-- JavaScript -->
 <script src="{{ asset('/sneat/assets/vendor/js/helpers.js') }}"></script>
 <script src="{{ asset('/sneat/assets/js/config.js') }}"></script>
-
+<script>
+  $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+</script>
 @stack('css')
 
 @stack('js')

@@ -52,9 +52,9 @@
             <div class="dropdown-divider"></div>
           </li>
           <li>
-            <form method="POST" action="logout">
+            <form method="POST" action="{{ route('logout') }}">
               @csrf
-                <a class="dropdown-item" href="logout" onclick="event.preventDefault(); this.closest('form').submit();">
+                <a class="dropdown-item" href="#" onclick="event.preventDefault(); this.closest('form').submit();">
                   <i class="bx bx-power-off me-2"></i>
                   <span class="align-middle">Đăng xuất</span>
                 </a>

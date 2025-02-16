@@ -11,3 +11,7 @@ use App\Http\Controllers\ProductController;
 
 Route::apiResource('users', UserController::class);
 Route::apiResource('products', ProductController::class);
+
+
+// Route::post('/login', [AuthController::class, 'login'])->name('login');
+// Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
